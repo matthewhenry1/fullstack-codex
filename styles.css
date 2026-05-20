@@ -481,6 +481,7 @@ h3 {
   bottom: 22px;
   z-index: 40;
   width: min(390px, calc(100vw - 36px));
+  max-height: calc(100vh - 44px);
   overflow: hidden;
   background: var(--white);
   border: 1px solid var(--line);
@@ -514,6 +515,7 @@ h3 {
 
 .agent-chat-body {
   display: block;
+  overflow: hidden;
 }
 
 .agent-chat.is-minimized .agent-chat-body {
@@ -1080,8 +1082,8 @@ h3 {
   }
 
   .chat-log {
-    min-height: 230px;
-    max-height: 38vh;
+    min-height: 170px;
+    max-height: 26vh;
   }
 
   .dashboard-grid {
