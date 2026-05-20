@@ -1,15 +1,17 @@
 import { useState } from "react";
 
 function CtaSection() {
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const form = event.currentTarget;
-    const email = new FormData(form).get("email");
+    const trimmedEmail = email.trim();
 
-    setMessage(`Thanks. We will follow up at ${email}.`);
-    form.reset();
+    if (!trimmedEmail) return;
+
+    setMessage(`Thanks. We will follow up at ${trimmedEmail}.`);
+    setEmail("");
   };
 
   return (
@@ -21,7 +23,14 @@ function CtaSection() {
       <form className="demo-form" onSubmit={handleSubmit}>
         <label>
           <span>Work email</span>
-          <input type="email" name="email" placeholder="you@company.com" required />
+          <input
+            type="email"
+            name="email"
+            placeholder="you@company.com"
+            required
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
         </label>
         <button className="button" type="submit">
           Request demo

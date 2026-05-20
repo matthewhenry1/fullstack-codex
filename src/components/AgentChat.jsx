@@ -2,7 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { getAgentReply, promptButtons, seedMessages } from "../data/agent.js";
 
 function AgentChat() {
-  const [isMinimized, setIsMinimized] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(() =>
+    window.matchMedia("(max-width: 720px)").matches
+  );
+  const [isPending, setIsPending] = useState(false);
   const [messages, setMessages] = useState(seedMessages);
   const [input, setInput] = useState("");
   const chatLogRef = useRef(null);
@@ -21,11 +24,14 @@ function AgentChat() {
 
   const submitPrompt = (message) => {
     const trimmed = message.trim();
-    if (!trimmed) return;
+    if (!trimmed || isPending) return;
 
+    clearTimeout(timeoutRef.current);
     setMessages((items) => [...items, { author: "You", message: trimmed }]);
+    setIsPending(true);
     timeoutRef.current = window.setTimeout(() => {
       setMessages((items) => [...items, { author: "Agent", message: getAgentReply(trimmed) }]);
+      setIsPending(false);
     }, 260);
   };
 
@@ -74,6 +80,7 @@ function AgentChat() {
               type="button"
               data-prompt={button.prompt}
               key={button.prompt}
+              disabled={isPending}
               onClick={() => submitPrompt(button.prompt)}
             >
               {button.label}
@@ -91,10 +98,11 @@ function AgentChat() {
             placeholder="Ask about this batch..."
             autoComplete="off"
             value={input}
+            disabled={isPending}
             onChange={(event) => setInput(event.target.value)}
           />
-          <button className="button button-small" type="submit">
-            Send
+          <button className="button button-small" type="submit" disabled={isPending}>
+            {isPending ? "Sending" : "Send"}
           </button>
         </form>
       </div>

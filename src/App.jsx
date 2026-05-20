@@ -1,4 +1,4 @@
-import AgentChat from "./components/AgentChat.jsx";
+import { lazy, Suspense } from "react";
 import CtaSection from "./components/CtaSection.jsx";
 import Footer from "./components/Footer.jsx";
 import Header from "./components/Header.jsx";
@@ -9,6 +9,8 @@ import PlatformSection from "./components/PlatformSection.jsx";
 import PricingSection from "./components/PricingSection.jsx";
 import ResourcesSection from "./components/ResourcesSection.jsx";
 import SecuritySection from "./components/SecuritySection.jsx";
+
+const AgentChat = lazy(() => import("./components/AgentChat.jsx"));
 
 function App() {
   return (
@@ -25,7 +27,9 @@ function App() {
         <CtaSection />
       </main>
       <Footer />
-      <AgentChat />
+      <Suspense fallback={null}>
+        <AgentChat />
+      </Suspense>
     </>
   );
 }

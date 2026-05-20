@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { metrics } from "../data/content.js";
 
 function MetricsSection() {
-  const [values, setValues] = useState(metrics.map(() => 0));
   const sectionRef = useRef(null);
+  const valueRefs = useRef([]);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -18,10 +18,21 @@ function MetricsSection() {
 
       const duration = 900;
       const start = performance.now();
+      let lastRenderedProgress = -1;
+
+      const renderValues = (progress) => {
+        if (progress === lastRenderedProgress) return;
+        lastRenderedProgress = progress;
+
+        metrics.forEach((metric, index) => {
+          if (!valueRefs.current[index]) return;
+          valueRefs.current[index].textContent = Math.round(metric.value * progress);
+        });
+      };
 
       const tick = (now) => {
         const progress = Math.min((now - start) / duration, 1);
-        setValues(metrics.map((metric) => Math.round(metric.value * progress)));
+        renderValues(progress);
 
         if (progress < 1) {
           animationFrame = requestAnimationFrame(tick);
@@ -31,8 +42,13 @@ function MetricsSection() {
       animationFrame = requestAnimationFrame(tick);
     };
 
-    if (!("IntersectionObserver" in window)) {
-      setValues(metrics.map((metric) => metric.value));
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+      metrics.forEach((metric, index) => {
+        if (!valueRefs.current[index]) return;
+        valueRefs.current[index].textContent = metric.value;
+      });
       return undefined;
     }
 
@@ -57,7 +73,16 @@ function MetricsSection() {
     <section className="section metrics-section" ref={sectionRef}>
       {metrics.map((metric, index) => (
         <div className="metric" key={metric.label}>
-          <strong data-count={metric.value}>{values[index]}</strong>
+          <strong data-count={metric.value}>
+            <span
+              ref={(element) => {
+                valueRefs.current[index] = element;
+              }}
+            >
+              0
+            </span>
+            {metric.suffix}
+          </strong>
           <span>{metric.label}</span>
         </div>
       ))}

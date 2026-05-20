@@ -3,6 +3,8 @@ function Toggle({ enabled, label, onToggle }) {
     <button
       className={`toggle${enabled ? " is-on" : ""}`}
       type="button"
+      role="switch"
+      aria-checked={enabled}
       aria-label={`${label} ${enabled ? "enabled" : "disabled"}`}
       onClick={onToggle}
     ></button>

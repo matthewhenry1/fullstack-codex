@@ -16,6 +16,7 @@ function PricingSection() {
               className={billing === period ? "active" : ""}
               type="button"
               data-billing={period}
+              aria-pressed={billing === period}
               key={period}
               onClick={() => setBilling(period)}
             >

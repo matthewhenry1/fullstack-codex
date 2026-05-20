@@ -1,13 +1,41 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { navLinks } from "../data/content.js";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const navRef = useRef(null);
   const closeMenu = () => setIsOpen(false);
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") closeMenu();
+    };
+
+    const handlePointerDown = (event) => {
+      if (navRef.current?.contains(event.target)) return;
+      closeMenu();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("hashchange", closeMenu);
+    document.addEventListener("pointerdown", handlePointerDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("hashchange", closeMenu);
+      document.removeEventListener("pointerdown", handlePointerDown);
+    };
+  }, [isOpen]);
 
   return (
     <header className="site-header">
-      <nav className={`nav${isOpen ? " is-open" : ""}`} aria-label="Primary navigation">
+      <nav
+        className={`nav${isOpen ? " is-open" : ""}`}
+        aria-label="Primary navigation"
+        ref={navRef}
+      >
         <a className="brand" href="#top" aria-label="NovaLedger home" onClick={closeMenu}>
           <span className="brand-mark">N</span>
           <span>NovaLedger</span>
