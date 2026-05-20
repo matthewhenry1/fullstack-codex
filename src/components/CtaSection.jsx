@@ -29,7 +29,7 @@ function CtaSection() {
             placeholder="you@company.com"
             required
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={(event) => setEmail(event.target.value.trim())}
           />
         </label>
         <button className="button" type="submit">
