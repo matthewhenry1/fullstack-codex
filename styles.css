@@ -75,7 +75,6 @@ input {
 .hero-actions,
 .trust-row,
 .billing-toggle,
-.agent-capabilities,
 .chat-header,
 .chat-header > div,
 .context-strip,
@@ -467,27 +466,6 @@ h3 {
   font-size: 0.86rem;
 }
 
-.agent-section {
-  display: grid;
-  grid-template-columns: minmax(0, 0.82fr) minmax(380px, 0.78fr);
-  gap: 48px;
-  align-items: center;
-}
-
-.agent-copy > p {
-  max-width: 640px;
-  color: var(--muted);
-  font-size: 1.12rem;
-  line-height: 1.7;
-}
-
-.agent-capabilities {
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 28px;
-}
-
-.agent-capabilities span,
 .context-strip span {
   padding: 9px 12px;
   color: var(--green);
@@ -498,6 +476,11 @@ h3 {
 }
 
 .agent-chat {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 40;
+  width: min(390px, calc(100vw - 36px));
   overflow: hidden;
   background: var(--white);
   border: 1px solid var(--line);
@@ -515,6 +498,34 @@ h3 {
 
 .chat-header > div {
   gap: 10px;
+}
+
+.chat-header button {
+  width: 34px;
+  height: 34px;
+  color: var(--mint);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.agent-chat-body {
+  display: block;
+}
+
+.agent-chat.is-minimized .agent-chat-body {
+  display: none;
+}
+
+.agent-chat.is-minimized {
+  width: min(250px, calc(100vw - 36px));
+}
+
+.agent-chat.is-minimized .chat-header {
+  min-height: 54px;
 }
 
 .chat-header > span {
@@ -540,8 +551,8 @@ h3 {
 }
 
 .chat-log {
-  min-height: 360px;
-  max-height: 440px;
+  min-height: 260px;
+  max-height: min(40vh, 340px);
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -551,7 +562,7 @@ h3 {
 }
 
 .chat-message {
-  width: min(88%, 420px);
+  width: min(90%, 320px);
   padding: 14px 16px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -986,7 +997,6 @@ h3 {
   }
 
   .hero,
-  .agent-section,
   .split-section,
   .resource-section,
   .cta-section {
@@ -1032,10 +1042,6 @@ h3 {
     grid-template-columns: 1fr;
   }
 
-  .chat-log {
-    min-height: 320px;
-  }
-
   .demo-form .button {
     align-self: stretch;
   }
@@ -1063,17 +1069,19 @@ h3 {
     width: 100%;
   }
 
-  .agent-section {
-    gap: 30px;
-  }
-
-  .chat-header,
   .chat-composer {
     grid-template-columns: 1fr;
   }
 
-  .chat-composer {
-    display: grid;
+  .agent-chat {
+    right: 12px;
+    bottom: 12px;
+    width: calc(100vw - 24px);
+  }
+
+  .chat-log {
+    min-height: 230px;
+    max-height: 38vh;
   }
 
   .dashboard-grid {

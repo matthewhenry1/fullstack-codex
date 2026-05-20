@@ -27,7 +27,6 @@
         </button>
         <div class="nav-menu" id="nav-menu">
           <a href="#platform">Platform</a>
-          <a href="#agent">Agent</a>
           <a href="#security">Security</a>
           <a href="#pricing">Pricing</a>
           <a href="#resources">Resources</a>
@@ -164,72 +163,6 @@
         </div>
       </section>
 
-      <section class="section agent-section" id="agent">
-        <div class="agent-copy">
-          <p class="eyebrow">Agent workspace</p>
-          <h2>Ask the operating agent to inspect activity and prepare the next action.</h2>
-          <p>
-            Embed an agent chat inside the dashboard so finance, risk, and support teams can
-            investigate exceptions without leaving the transaction context.
-          </p>
-          <div class="agent-capabilities" aria-label="Agent capabilities">
-            <span>Reconcile mismatches</span>
-            <span>Draft audit notes</span>
-            <span>Summarize exposure</span>
-          </div>
-        </div>
-        <div class="agent-chat" aria-label="Mock agent chat">
-          <div class="chat-header">
-            <div>
-              <span class="agent-status" aria-hidden="true"></span>
-              <strong>Nova agent</strong>
-            </div>
-            <span>Live context</span>
-          </div>
-          <div class="context-strip" aria-label="Current agent context">
-            <span>ACH batch #8421</span>
-            <span>$980K</span>
-            <span>2 exceptions</span>
-          </div>
-          <div class="chat-log" data-chat-log aria-live="polite">
-            <article class="chat-message agent-message">
-              <span>Agent</span>
-              <p>
-                I found two unmatched returns in the ACH batch. The exposure is low because both
-                accounts have positive reserves.
-              </p>
-            </article>
-            <article class="chat-message user-message">
-              <span>You</span>
-              <p>Prepare a summary for the risk review.</p>
-            </article>
-            <article class="chat-message agent-message">
-              <span>Agent</span>
-              <p>
-                Drafted: Batch #8421 settled with 2 exceptions totaling $14,280. Recommended action:
-                hold release until customer support confirms updated account details.
-              </p>
-            </article>
-          </div>
-          <div class="prompt-row" aria-label="Suggested prompts">
-            <button type="button" data-prompt="Check open exceptions">Check exceptions</button>
-            <button type="button" data-prompt="Draft customer update">Draft update</button>
-            <button type="button" data-prompt="Explain the risk score">Explain risk</button>
-          </div>
-          <form class="chat-composer" data-chat-form>
-            <label class="sr-only" for="agent-message">Message the agent</label>
-            <input
-              id="agent-message"
-              name="message"
-              type="text"
-              placeholder="Ask about this batch..."
-              autocomplete="off"
-            />
-            <button class="button button-small" type="submit">Send</button>
-          </form>
-        </div>
-      </section>
-
       <section class="section split-section" id="security">
         <div class="security-copy">
           <p class="eyebrow">Security and compliance</p>
@@ -360,6 +293,59 @@
       <p>Template content for a fintech company website.</p>
       <a href="#top">Back to top</a>
     </footer>
+
+    <aside class="agent-chat" aria-label="Mock agent chat">
+      <div class="chat-header">
+        <div>
+          <span class="agent-status" aria-hidden="true"></span>
+          <strong>Nova agent</strong>
+        </div>
+        <button type="button" data-chat-toggle aria-label="Minimize agent chat">−</button>
+      </div>
+      <div class="agent-chat-body">
+        <div class="context-strip" aria-label="Current agent context">
+          <span>ACH batch #8421</span>
+          <span>$980K</span>
+          <span>2 exceptions</span>
+        </div>
+        <div class="chat-log" data-chat-log aria-live="polite">
+          <article class="chat-message agent-message">
+            <span>Agent</span>
+            <p>
+              I found two unmatched returns in the ACH batch. The exposure is low because both
+              accounts have positive reserves.
+            </p>
+          </article>
+          <article class="chat-message user-message">
+            <span>You</span>
+            <p>Prepare a summary for the risk review.</p>
+          </article>
+          <article class="chat-message agent-message">
+            <span>Agent</span>
+            <p>
+              Drafted: Batch #8421 settled with 2 exceptions totaling $14,280. Recommended action:
+              hold release until customer support confirms updated account details.
+            </p>
+          </article>
+        </div>
+        <div class="prompt-row" aria-label="Suggested prompts">
+          <button type="button" data-prompt="Check open exceptions">Check exceptions</button>
+          <button type="button" data-prompt="Draft customer update">Draft update</button>
+          <button type="button" data-prompt="Explain the risk score">Explain risk</button>
+        </div>
+        <form class="chat-composer" data-chat-form>
+          <label class="sr-only" for="agent-message">Message the agent</label>
+          <input
+            id="agent-message"
+            name="message"
+            type="text"
+            placeholder="Ask about this batch..."
+            autocomplete="off"
+          />
+          <button class="button button-small" type="submit">Send</button>
+        </form>
+      </div>
+    </aside>
 
     <script src="script.js"></script>
   </body>

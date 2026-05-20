@@ -3,6 +3,7 @@ const navToggle = document.querySelector(".nav-toggle");
 const billingButtons = document.querySelectorAll("[data-billing]");
 const chatLog = document.querySelector("[data-chat-log]");
 const chatForm = document.querySelector("[data-chat-form]");
+const chatToggle = document.querySelector("[data-chat-toggle]");
 const promptButtons = document.querySelectorAll("[data-prompt]");
 const priceMap = {
   monthly: {
@@ -79,6 +80,17 @@ const submitAgentPrompt = (message) => {
 
 promptButtons.forEach((button) => {
   button.addEventListener("click", () => submitAgentPrompt(button.dataset.prompt));
+});
+
+chatToggle.addEventListener("click", () => {
+  const chat = chatToggle.closest(".agent-chat");
+  const minimized = chat.classList.toggle("is-minimized");
+
+  chatToggle.textContent = minimized ? "+" : "−";
+  chatToggle.setAttribute(
+    "aria-label",
+    `${minimized ? "Expand" : "Minimize"} agent chat`
+  );
 });
 
 chatForm.addEventListener("submit", (event) => {
