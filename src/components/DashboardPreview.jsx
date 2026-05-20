@@ -1,5 +1,13 @@
 function DashboardPreview() {
-  const bars = ["38%", "68%", "52%", "82%", "61%", "91%", "74%"];
+  const bars = [
+    "bar-38",
+    "bar-68",
+    "bar-52",
+    "bar-82",
+    "bar-61",
+    "bar-91",
+    "bar-74",
+  ];
 
   return (
     <div className="product-shell" aria-label="Finance operations dashboard preview">
@@ -29,8 +37,8 @@ function DashboardPreview() {
             <strong>$3.2M</strong>
           </div>
           <div className="bar-chart" aria-hidden="true">
-            {bars.map((height) => (
-              <span key={height} style={{ height }}></span>
+            {bars.map((barClass) => (
+              <span className={barClass} key={barClass}></span>
             ))}
           </div>
         </article>
